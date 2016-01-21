@@ -4,14 +4,10 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.linux.infiniscroll.wicket.page.Customer;
+import com.linux.infiniscroll.jpa.entities.Customer;
 
 public interface CustomerDao extends JpaRepository<Customer, Long> {
 
-	// tag::methods[]
-	long countByLastNameStartsWithIgnoreCase(String lastName);
-
-	Page<Customer> findByLastNameStartsWithIgnoreCase(String lastName, Pageable pageable);
-	// end::methods[]
+	Customer save(Customer customer);
 
 }

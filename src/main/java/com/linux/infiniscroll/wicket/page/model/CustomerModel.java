@@ -5,7 +5,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
 
 import com.linux.infiniscroll.jpa.CustomerDao;
-import com.linux.infiniscroll.wicket.page.Customer;
+import com.linux.infiniscroll.jpa.entities.Customer;
 
 public class CustomerModel extends LoadableDetachableModel<Customer> {
 
@@ -15,7 +15,7 @@ public class CustomerModel extends LoadableDetachableModel<Customer> {
 	private static final long serialVersionUID = 6481638266587472041L;
 
 	@SpringBean
-	private CustomerDao repo;
+	private CustomerDao customerDao;
 
 	private long id;
 
@@ -28,7 +28,7 @@ public class CustomerModel extends LoadableDetachableModel<Customer> {
 	// tag::load[]
 	@Override
 	protected Customer load() {
-		return repo.findOne(id);
+		return customerDao.findOne(id);
 	}
 	// end::load[]
 

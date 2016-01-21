@@ -1,4 +1,4 @@
-package com.linux.infiniscroll.wicket.page;
+package com.linux.infiniscroll.jpa.entities;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
