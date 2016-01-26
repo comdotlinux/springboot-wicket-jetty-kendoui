@@ -48,7 +48,7 @@ public class ShowDataTablePage extends WebPage {
 						
 						ShortListedCustomer shortlistedCustomer = new ShortListedCustomer();
 						Customer customer = cModel.getObject();
-						shortlistedCustomer.setId(customer.getId());
+						shortlistedCustomer.setCustomerId(customer.getId());
 						shotlistedCustomerDao.saveAndFlush(shortlistedCustomer);
 					}
 				});

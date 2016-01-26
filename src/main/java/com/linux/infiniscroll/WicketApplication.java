@@ -10,6 +10,7 @@ import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
 import com.linux.infiniscroll.wicket.page.ShowDataTablePage;
 import com.linux.infiniscroll.wicket.page.dataentry.HomePage;
+import com.linux.infiniscroll.wicket.page.selected.ShowSelectedDataPage;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapTheme;
@@ -28,6 +29,7 @@ public class WicketApplication extends WebApplication {
 		
 		mount(new MountedMapper("/", HomePage.class));
 		mount(new MountedMapper("/showData", ShowDataTablePage.class));
+		mount(new MountedMapper("/showSelected", ShowSelectedDataPage.class));
 
 		getComponentInstantiationListeners()
 				.add(new SpringComponentInjector(this, getWebApplicationContext(getServletContext())));
