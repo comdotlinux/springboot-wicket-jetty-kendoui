@@ -34,7 +34,7 @@ public class HomePage extends WebPage {
 	private static final int NUMBER_OF_ROWS = 1000;
 
 	@Inject
-	CustomerDao customerDao;
+	private CustomerDao customerDao;
 
 	@Override
 	protected void onInitialize() {
