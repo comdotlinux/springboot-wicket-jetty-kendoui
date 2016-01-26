@@ -8,6 +8,4 @@ import com.linux.infiniscroll.jpa.entities.Customer;
 
 public interface CustomerDao extends JpaRepository<Customer, Long> {
 
-	Customer save(Customer customer);
-
 }

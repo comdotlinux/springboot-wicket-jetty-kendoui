@@ -1,5 +1,7 @@
 package com.linux.infiniscroll.wicket.page.model;
 
+import java.util.List;
+
 import org.apache.wicket.injection.Injector;
 import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.spring.injection.annot.SpringBean;
@@ -7,7 +9,7 @@ import org.apache.wicket.spring.injection.annot.SpringBean;
 import com.linux.infiniscroll.jpa.CustomerDao;
 import com.linux.infiniscroll.jpa.entities.Customer;
 
-public class CustomerModel extends LoadableDetachableModel<Customer> {
+public class CustomerModel extends LoadableDetachableModel<List<Customer>> {
 
 	/**
 	 * 
@@ -19,16 +21,14 @@ public class CustomerModel extends LoadableDetachableModel<Customer> {
 
 	private long id;
 
-	public CustomerModel(Customer customer) {
-		super(customer);
-		this.id = customer.getId();
+	public CustomerModel() {
 		Injector.get().inject(this);
 	}
 
 	// tag::load[]
 	@Override
-	protected Customer load() {
-		return customerDao.findOne(id);
+	protected List<Customer> load() {
+		return customerDao.findAll();
 	}
 	// end::load[]
 

@@ -1,0 +1,7 @@
+<persistence xmlns="http://java.sun.com/xml/ns/persistence"
+	version="1.0">
+	<persistence-unit name="defaultPU">
+		<class>com.linux.infiniscroll.jpa.entities.Customer</class>
+		<class>com.linux.infiniscroll.jpa.entities.ShortListedCustomer</class>
+	</persistence-unit>
+</persistence>

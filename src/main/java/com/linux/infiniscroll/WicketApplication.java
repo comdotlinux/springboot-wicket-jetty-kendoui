@@ -8,7 +8,8 @@ import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.spring.injection.annot.SpringComponentInjector;
 
-import com.linux.infiniscroll.wicket.page.HomePage;
+import com.linux.infiniscroll.wicket.page.ShowDataTablePage;
+import com.linux.infiniscroll.wicket.page.dataentry.HomePage;
 
 import de.agilecoders.wicket.core.Bootstrap;
 import de.agilecoders.wicket.core.markup.html.themes.bootstrap.BootstrapTheme;
@@ -26,6 +27,7 @@ public class WicketApplication extends WebApplication {
 		super.init();
 		
 		mount(new MountedMapper("/", HomePage.class));
+		mount(new MountedMapper("/showData", ShowDataTablePage.class));
 
 		getComponentInstantiationListeners()
 				.add(new SpringComponentInjector(this, getWebApplicationContext(getServletContext())));
