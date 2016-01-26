@@ -47,7 +47,7 @@ public class HomePage extends WebPage {
 			customerList.add(new Customer(fnb.toString(), lnb.toString()));
 		}
 
-		add(new Label("insertData", Model.of("Insert" + NUMBER_OF_ROWS + " John Doe's into the Database")));
+		add(new Label("insertData", Model.of("Insert " + NUMBER_OF_ROWS + " John Doe's into the Database")));
 		Form<Void> dataForm = new Form<Void>("dataForm") {
 
 			/**

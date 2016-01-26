@@ -8,9 +8,11 @@ import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.Model;
 import org.apache.wicket.model.PropertyModel;
 
 import com.googlecode.wicket.jquery.ui.markup.html.link.AjaxLink;
+import com.linux.infiniscroll.jpa.CustomerDao;
 import com.linux.infiniscroll.jpa.ShortListedCustomerDao;
 import com.linux.infiniscroll.jpa.entities.Customer;
 import com.linux.infiniscroll.jpa.entities.ShortListedCustomer;
@@ -29,6 +31,8 @@ public class ShowDataTablePage extends WebPage {
 		CustomerModel cm = new CustomerModel();
 		
 		
+		
+		add(new Label("count", "The count of customers is : " + cm.getObject().size()));
 		ListView<Customer> customerView = new ListView<Customer>("customerView", cm) {
 			
 			private static final long serialVersionUID = 7850232429897257979L;
@@ -36,8 +40,7 @@ public class ShowDataTablePage extends WebPage {
 			@Override
 			protected void populateItem(ListItem<Customer> item) {
 				IModel<Customer> cModel = item.getModel();
-				item.add(new Label("id", new PropertyModel<>(cModel, "id")));
-				item.add(new AjaxLink<String>("idLink") {
+				AjaxLink<String> ajaxLink = new AjaxLink<String>("idLink", Model.of("Select")) {
 					/**
 					 * 
 					 */
@@ -51,9 +54,11 @@ public class ShowDataTablePage extends WebPage {
 						shortlistedCustomer.setCustomerId(customer.getId());
 						shotlistedCustomerDao.saveAndFlush(shortlistedCustomer);
 					}
-				});
-				item.add(new Label("firstname", new PropertyModel<>(cModel, "firstName")));
-				item.add(new Label("lastname", new PropertyModel<>(cModel, "lastName")));
+				};
+				item.add(ajaxLink);
+				ajaxLink.add(new Label("id", new PropertyModel<>(cModel, "id")));
+				ajaxLink.add(new Label("firstname", new PropertyModel<>(cModel, "firstName")));
+				ajaxLink.add(new Label("lastname", new PropertyModel<>(cModel, "lastName")));
 			}
 		};
 		

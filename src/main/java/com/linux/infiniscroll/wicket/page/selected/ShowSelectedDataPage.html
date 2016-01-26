@@ -4,15 +4,16 @@
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Insert Data</title>
+<title>Home Page</title>
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
 	integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7"
-	crossorigin="anonymous">
+	crossorigin="anonymous" />
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css"
 	integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r"
-	crossorigin="anonymous">
+	crossorigin="anonymous"/>
+
 </head>
 <body>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
@@ -25,7 +26,7 @@
 						class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="/">Infinite Scrolling</a>
+				<a class="navbar-brand" href="/">Infinte Scrolling</a>
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
@@ -37,30 +38,30 @@
 			<!--/.nav-collapse -->
 		</div>
 	</nav>
+	<p></p>
 	<div class="container">
-		<p></p>
-		<p></p>
-		<p></p>
-		<p></p>
-		<p></p>
 		<div class="starter-template">
-			<p>This is used to insert Data into the database using a simple
-				for loop instead of the database being pre populated.</p>
-			<p>....</p>
-			<h1 wicket:id="insertData"></h1>
-			<form wicket:id="dataForm">
-				<input type="submit" wicket:id="button" />
-			</form>
+			<br/>
+			<br/>
+			<br/>
+			<h1>You Selected these customers</h1>
+			<a href="#" wicket:id="clearData">Clear All Saved Selections...</a>
+			<div class="table">
+				<div wicket:id="customerView" class="row table table-bordered">
+					<div wicket:id="id" class="col-md-4"/>
+					<div wicket:id="firstname" class="col-md-4"/>
+					<div wicket:id="lastname" class="col-md-4"/>
+				</div>
+			</div>
 		</div>
 	</div>
-
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
 	<script
-		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+		src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"/>
 	<!-- Include all compiled plugins (below), or include individual files as needed -->
 	<script
 		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
 		integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS"
-		crossorigin="anonymous"></script>
+		crossorigin="anonymous"/>
 </body>
 </html>
