@@ -3,8 +3,10 @@ package com.linux.infiniscroll.wicket.page;
 import javax.inject.Inject;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
+import org.apache.wicket.markup.html.link.AbstractLink;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
 import org.apache.wicket.model.IModel;
@@ -25,6 +27,10 @@ public class ShowDataTablePage extends WebPage {
 	@Inject
 	private ShortListedCustomerDao shotlistedCustomerDao;
 	
+	@Inject
+	private CustomerDao customerDao;
+
+	
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
@@ -32,7 +38,22 @@ public class ShowDataTablePage extends WebPage {
 		
 		
 		
-		add(new Label("count", "The count of customers is : " + cm.getObject().size()));
+		WebMarkupContainer listViewWrapper = new WebMarkupContainer("listViewWrapper");
+		Label countLabel = new Label("count", new PropertyModel<>(cm, "size"));
+		add(countLabel.setOutputMarkupPlaceholderTag(true));
+		add(new AjaxLink<String>("clearDataLink", Model.of("Clear Customer Data")) {
+
+			private static final long serialVersionUID = 6085567874168630922L;
+
+			@Override
+			public void onClick(AjaxRequestTarget target) {
+				customerDao.deleteAllInBatch();
+				customerDao.flush();
+				target.add(countLabel, listViewWrapper);
+			}
+			
+		});
+		
 		ListView<Customer> customerView = new ListView<Customer>("customerView", cm) {
 			
 			private static final long serialVersionUID = 7850232429897257979L;
@@ -40,11 +61,9 @@ public class ShowDataTablePage extends WebPage {
 			@Override
 			protected void populateItem(ListItem<Customer> item) {
 				IModel<Customer> cModel = item.getModel();
-				AjaxLink<String> ajaxLink = new AjaxLink<String>("idLink", Model.of("Select")) {
-					/**
-					 * 
-					 */
-					private static final long serialVersionUID = 1L;
+				AbstractLink ajaxLink = new AjaxLink<String>("idLink", Model.of("Select")) {
+					
+					private static final long serialVersionUID = -2813409376314187568L;
 
 					@Override
 					public void onClick(AjaxRequestTarget target) {
@@ -62,7 +81,7 @@ public class ShowDataTablePage extends WebPage {
 			}
 		};
 		
-		add(customerView);
+		add(listViewWrapper.add(customerView.setOutputMarkupPlaceholderTag(true)).setOutputMarkupPlaceholderTag(true));
 		
 	}
 

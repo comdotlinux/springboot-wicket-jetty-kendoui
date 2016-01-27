@@ -47,7 +47,15 @@
 			<p>This is used to insert Data into the database using a simple
 				for loop instead of the database being pre populated.</p>
 			<p>....</p>
-			<h1 wicket:id="insertData"></h1>
+			<div class="row">
+			
+			<div class="col-md-4">Enter number of customers to insert : </div><input type="text" wicket:id="insertCountInput" class="col-md-1">
+			</div>
+			<div class="row">
+				<h3 class="col-md-1">Insert </h3>
+				<h3 wicket:id="insertData" class="col-md-1"></h3>
+				<h3 class="col-md-4">John Doe's into the Database</h3>
+			</div>
 			<form wicket:id="dataForm">
 				<input type="submit" wicket:id="button" />
 			</form>

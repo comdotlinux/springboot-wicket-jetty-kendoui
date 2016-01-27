@@ -5,18 +5,16 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import org.apache.wicket.Component;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
-import org.apache.wicket.behavior.Behavior;
-import org.apache.wicket.event.Broadcast;
-import org.apache.wicket.event.IEventSink;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.request.component.IRequestablePage;
+import org.apache.wicket.model.PropertyModel;
 
 import com.linux.infiniscroll.jpa.CustomerDao;
 import com.linux.infiniscroll.jpa.entities.Customer;
@@ -33,6 +31,8 @@ public class HomePage extends WebPage {
 
 	private static final int NUMBER_OF_ROWS = 1000;
 
+	private int insertCount = NUMBER_OF_ROWS;
+	
 	@Inject
 	private CustomerDao customerDao;
 
@@ -40,14 +40,24 @@ public class HomePage extends WebPage {
 	protected void onInitialize() {
 		super.onInitialize();
 
-		final List<Customer> customerList = new ArrayList<>();
-		for (int i = 1; i <= NUMBER_OF_ROWS; i++) {
-			StringBuilder fnb = new StringBuilder(JOHN).append(DASH).append(i);
-			StringBuilder lnb = new StringBuilder(DOE).append(DASH).append(i);
-			customerList.add(new Customer(fnb.toString(), lnb.toString()));
-		}
+		final IModel<Integer> insertCountModel = new PropertyModel<Integer>(this, "insertCount");
+		Label insertCountLabel = new Label("insertData", insertCountModel);
 
-		add(new Label("insertData", Model.of("Insert " + NUMBER_OF_ROWS + " John Doe's into the Database")));
+		add(new TextField<Integer>("insertCountInput", insertCountModel).add(new AjaxFormComponentUpdatingBehavior("onchange") {
+			
+			
+			private static final long serialVersionUID = 480766021609772357L;
+
+			@Override
+			protected void onUpdate(AjaxRequestTarget target) {
+				if(insertCountModel.getObject() == null || insertCountModel.getObject() == 0){
+					insertCountModel.setObject(NUMBER_OF_ROWS);
+				}
+				target.add(insertCountLabel);
+			}
+		}));
+		
+		add(insertCountLabel.setOutputMarkupPlaceholderTag(true));
 		Form<Void> dataForm = new Form<Void>("dataForm") {
 
 			/**
@@ -57,7 +67,7 @@ public class HomePage extends WebPage {
 			
 			@Override
 			protected void onSubmit() {
-				customerDao.save(customerList);
+				customerDao.save(generateCustomers(getInsertCount()));
 				customerDao.flush();
 				super.onSubmit();
 			}
@@ -67,6 +77,24 @@ public class HomePage extends WebPage {
 		dataForm.add(new Button("button",Model.of("Send Data")));
 		add(dataForm);
 
+	}
+
+	private List<Customer> generateCustomers(int numberOfCustomers) {
+		final List<Customer> customerList = new ArrayList<>();
+		for (int i = 1; i <= numberOfCustomers; i++) {
+			StringBuilder fnb = new StringBuilder(JOHN).append(DASH).append(i);
+			StringBuilder lnb = new StringBuilder(DOE).append(DASH).append(i);
+			customerList.add(new Customer(fnb.toString(), lnb.toString()));
+		}
+		return customerList;
+	}
+
+	public int getInsertCount() {
+		return insertCount;
+	}
+
+	public void setInsertCount(int insertCount) {
+		this.insertCount = insertCount;
 	}
 
 }

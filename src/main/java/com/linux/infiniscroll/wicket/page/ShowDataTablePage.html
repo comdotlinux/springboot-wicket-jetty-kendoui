@@ -41,19 +41,19 @@
 	<p></p>
 	<div class="container">
 		<div class="starter-template">
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-			<br/>
+			<br /> <br /> <br /> <br /> <br />
 			<h1>This is the inserted Data</h1>
-			<h2 wicket:id="count"></h2>
-			<div class="table">
+			<div class="row">
+				<h2 class="col-md-4">Count of customers : </h2>
+				<h2 wicket:id="count" class="col-md-1"></h2>
+				<h2 class="col-md-1"><a href="#" wicket:id="clearDataLink">Clear</a></h2>
+			</div>
+			<div class="table" wicket:id="listViewWrapper">
 				<div wicket:id="customerView" class="row table table-bordered">
 					<a href="#" wicket:id="idLink">
-						<div wicket:id="id" class="col-md-3"/>
-						<div wicket:id="firstname" class="col-md-3"/>
-						<div wicket:id="lastname" class="col-md-3"/>
+						<div wicket:id="id" class="col-md-3" />
+						<div wicket:id="firstname" class="col-md-3" />
+						<div wicket:id="lastname" class="col-md-3" />
 					</a>
 				</div>
 			</div>
