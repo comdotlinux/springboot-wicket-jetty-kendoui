@@ -15,6 +15,7 @@
 	crossorigin="anonymous">
 </head>
 <body>
+	<wicket:child/>
 	<nav class="navbar navbar-inverse navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -29,9 +30,9 @@
 			</div>
 			<div id="navbar" class="collapse navbar-collapse">
 				<ul class="nav navbar-nav">
-					<li class="active"><a href="/showData">Home</a></li>
-					<li><a href="/">Insert Test Data</a></li>
-					<li><a href="/showSelected">Show Selected</a></li>
+					<li class="active" wicket:id="home"><a href="/showData">Home</a></li>
+					<li wicket:id="insert"><a href="/">Insert Test Data</a></li>
+					<li wicket:id="showSelected"><a href="/showSelected">Show Selected</a></li>
 				</ul>
 			</div>
 			<!--/.nav-collapse -->

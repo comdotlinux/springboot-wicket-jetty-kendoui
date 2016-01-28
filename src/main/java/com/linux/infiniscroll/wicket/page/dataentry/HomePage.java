@@ -5,8 +5,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import org.apache.wicket.AttributeModifier;
+import org.apache.wicket.Component;
+import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.form.AjaxFormComponentUpdatingBehavior;
+import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.WebPage;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
@@ -39,6 +43,13 @@ public class HomePage extends WebPage {
 	@Override
 	protected void onInitialize() {
 		super.onInitialize();
+		
+		WebMarkupContainer home = new WebMarkupContainer("home");
+		WebMarkupContainer insert = new WebMarkupContainer("insert");
+		WebMarkupContainer showSelected = new WebMarkupContainer("showSelected");
+		add(home.setOutputMarkupPlaceholderTag(true).add(new AttributeModifierOnClick("click", home, "active", insert, showSelected)));
+		add(insert.setOutputMarkupPlaceholderTag(true).add(new AttributeModifierOnClick("click", insert, "active", home, showSelected)));
+		add(showSelected.setOutputMarkupPlaceholderTag(true).add(new AttributeModifierOnClick("click", showSelected, "active", insert, home)));
 
 		final IModel<Integer> insertCountModel = new PropertyModel<Integer>(this, "insertCount");
 		Label insertCountLabel = new Label("insertData", insertCountModel);
@@ -97,4 +108,35 @@ public class HomePage extends WebPage {
 		this.insertCount = insertCount;
 	}
 
+	
+	private static final class AttributeModifierOnClick extends AjaxEventBehavior{
+
+		private Component[] others;
+		private final AttributeModifier remvoveClassFromOthers;
+		private final AttributeModifier classToAppendToClickedComponent;
+		private Component clicked;
+
+		public AttributeModifierOnClick(String event, Component clicked, String classToAppendToClick, Component... others) {
+			super(event);
+			this.clicked = clicked;
+			this.classToAppendToClickedComponent = AttributeModifier.replace("class", classToAppendToClick);
+			this.remvoveClassFromOthers = AttributeModifier.remove("class");
+			this.others = others;
+		}
+
+		@Override
+		protected void onEvent(AjaxRequestTarget target) {
+			clicked.add(classToAppendToClickedComponent);
+			for (Component component : others) {
+				component.add(remvoveClassFromOthers);
+			}
+			
+			target.add(clicked);
+			target.add(others);
+		}
+		
+		
+		
+	}
+	
 }
