@@ -7,7 +7,8 @@
 	<description>A Spring Boot Application that reads items from a table and displays them in Apache wicket with infinite scrolling and then inserts the selections in another database table</description>
 
 	<properties>
-		<maven.compiler.target>1.7</maven.compiler.target>
+                <maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.version>1.8</java.version>
 		<wicketVersion>7.0.0</wicketVersion>
 		<wicketstuffVersion>${wicketVersion}</wicketstuffVersion>
